@@ -103,6 +103,30 @@ def split_nodes_image(old_nodes):
                     nodes.append(TextNode(text,"text"))                    
     return nodes
 
-
 def split_nodes_link(old_nodes):
-    return NotImplemented
+    nodes = []
+    for old_node in old_nodes:
+        if type(old_node) != TextNode:
+            nodes.append (old_node)
+        elif old_node.text_type != "text":
+            nodes.append (old_node)
+        else:
+            links = extract_markdown_links(old_node.text)
+            if len(links) == 0 and len (old_node.text) > 0:
+                nodes.append (old_node)
+            else:
+                text = old_node.text
+                for i in range(0, len(links)):
+                    pattern = f"[{links[i][0]}]({links[i][1]})"
+                    #print (f"Split pattern: {pattern}")
+                    parts = text.split(pattern)
+                    if len(parts)>0 and len(parts[0])>0 :
+                        nodes.append(TextNode(parts[0],"text"))
+                    if len(parts)>1:
+                        text = parts[1]
+                    else:
+                        text = ""
+                    nodes.append(TextNode(links[i][0],"link",links[i][1]))
+                if len(text)>0:
+                    nodes.append(TextNode(text,"text"))                    
+    return nodes

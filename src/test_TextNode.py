@@ -81,7 +81,7 @@ class TestTextNode(unittest.TestCase):
         ]
         self.assertEqual(nodes1, nodes2)
 
-
+    #test_split_nodes_image
     def test_split_nodes_image1(self):
         node = TextNode(
             "This is text with an ![image](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png) and another ![second image](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/3elNhQu.png)",
@@ -152,7 +152,6 @@ class TestTextNode(unittest.TestCase):
         # print (nodes2)
         self.assertEqual(nodes1, nodes2)
 
-
     def test_split_nodes_image5(self):
         node = TextNode(
             "",
@@ -169,8 +168,7 @@ class TestTextNode(unittest.TestCase):
         # print (nodes2)
         self.assertEqual(nodes1, nodes2)
 
-
-    def test_split_nodes_image5(self):
+    def test_split_nodes_image6(self):
         node = TextNode(
             "Just text",
             text_type_text,
@@ -186,6 +184,29 @@ class TestTextNode(unittest.TestCase):
         # print (nodes1)
         # print (nodes2)
         self.assertEqual(nodes1, nodes2)
+
+
+    #test_split_nodes_link
+    def test_split_nodes_link1(self):
+        node = TextNode(
+            "This is text with a [link](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png) and another [second link](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/3elNhQu.png)",
+            text_type_text,
+        )
+        nodes1 = split_nodes_link([node])
+        nodes2 = [
+            TextNode("This is text with a ", text_type_text),
+            TextNode("link", text_type_link, "https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png"),
+            TextNode(" and another ", text_type_text),
+            TextNode("second link", text_type_link, "https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/3elNhQu.png")
+        ]
+        # print ("")        
+        # print ("test_split_nodes_image")
+        # print ("======================")
+        # print (nodes1)
+        # print ("")  
+        # print (nodes2)
+        self.assertEqual(nodes1, nodes2)
+
 
 if __name__ == "__main__":
     unittest.main()
