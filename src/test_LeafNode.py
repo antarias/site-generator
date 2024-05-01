@@ -13,7 +13,7 @@ class TestLeafNode(unittest.TestCase):
         render1 = LeafNode(None,"Esto es el texto",{"href": "https://www.google.com", "target": "_blank"}).to_html()
         render2 = 'Esto es el texto'
         self.assertEqual(render1, render2)
-
         
+            
 if __name__ == "__main__":
     unittest.main()

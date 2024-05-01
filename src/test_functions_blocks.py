@@ -18,6 +18,24 @@ This is a paragraph of text. It has some **bold** and *italic* words inside of i
         ]
         self.assertEqual(res1, res2)
 
+    def test_markdown_to_blocks2(self):
+        text = '''
+# The Unparalleled Majesty of "The Lord of the Rings"
+
+[Back Home](/)
+
+![LOTR image artistmonkeys](/images/rivendell.png)
+
+> "I cordially dislike allegory in all its manifestations, and always have done so since I grew old and wary enough to detect its presence.       
+        '''
+        res1 = markdown_to_blocks (text)
+        res2 = ['# The Unparalleled Majesty of "The Lord of the Rings"',
+                '[Back Home](/)',
+                '![LOTR image artistmonkeys](/images/rivendell.png)',
+                '> "I cordially dislike allegory in all its manifestations, and always have done so since I grew old and wary enough to detect its presence.'            
+        ]
+        self.assertEqual(res1, res2)
+
 
     def test_block_to_block_type(self):
         test_cases = [
@@ -46,6 +64,26 @@ This is a paragraph of text. It has some **bold** and *italic* words inside of i
             print (f"BLOQUE: {case[0]}")
             print (f"   ERROR - RES: {case[1]} CALC: {type}")
         self.assertEqual(res1, res2)                
+
+    def test_block_to_block_type2(self):
+        test_cases = [
+                ('# The Unparalleled Majesty of "The Lord of the Rings"', block_type_heading),
+                ('[Back Home](/)', block_type_paragraph),
+                ('![LOTR image artistmonkeys](/images/rivendell.png)', block_type_paragraph),
+                ('> "I cordially dislike allegory in all its manifestations, and always have done so since I grew old and wary enough to detect its presence.', block_type_quote)         
+        ]                        
+        res1 = []
+        res2 = []
+        for case in test_cases:
+          type = block_to_block_type(case[0])
+          res1.append(type)
+          res2.append(case[1])
+          if type != case[1]:
+            print (f"BLOQUE: {case[0]}")
+            print (f"   ERROR - RES: {case[1]} CALC: {type}")
+        self.assertEqual(res1, res2)        
+
         
+
 if __name__ == "__main__":
     unittest.main()

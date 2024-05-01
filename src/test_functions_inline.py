@@ -214,6 +214,20 @@ class Test_functions_inline(unittest.TestCase):
         # print (nodes2)
         self.assertEqual(nodes1, nodes2)
 
+    def test_text_to_textnodes2(self):
+        text = '![LOTR image artistmonkeys](/images/rivendell.png)'
+        nodes1 = text_to_textnodes(text)
+        nodes2 = [
+            TextNode("LOTR image artistmonkeys", text_type_image, "/images/rivendell.png"),
+        ]
+        # print ("")        
+        # print ("test_text_to_textnodes")
+        # print ("======================")
+        # print (nodes1)
+        # print ("")  
+        # print (nodes2)
+        self.assertEqual(nodes1, nodes2)
+
 
 if __name__ == "__main__":
     unittest.main()
